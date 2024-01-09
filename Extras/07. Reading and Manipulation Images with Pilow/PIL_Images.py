@@ -24,11 +24,27 @@ def converIMG(filename):
 converIMG(list_files[0])
 # %%
 # Creating thumbnails
-def createThumb(filename)
+def createThumb(filename):
     folder_save = r"./data/thumb/"
     if not os.path.exists(folder_save):
         os.makedirs(folder_save)
     thumb_size = (150, 150)
-    thumb_file = 
-    Image.open(f"{folder_dir}/{list_files[0]}")
-    thumb_file.save(f"{folder_save}dog.png")
+    thumb_file = Image.open(f"{folder_dir}/{filename}")
+    thumb_file.thumbnail(thumb_size)
+    thumb_file.save(f"{folder_save}dog_thumb.png")
+    return thumb_file
+
+createThumb(list_files[3])
+
+# %%
+def rotateIMG(filename, angle):
+    folder_save = r"./data/rotate/"
+    if not os.path.exists(folder_save):
+        os.makedirs(folder_save)
+    rotate_file = Image.open(f"{folder_dir}/{filename}")
+    rotate_file = rotate_file.rotate(angle)
+    rotate_file.save(f"{folder_save}dog_rotate.png")
+    return rotate_file
+
+rotateIMG(list_files[4], 90)
+# %%
