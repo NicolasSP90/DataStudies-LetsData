@@ -2,6 +2,7 @@
 # PIL Libraries
 from PIL import Image
 from PIL import ImageFilter
+from PIL import ImageDraw, ImageFont
 
 # Path manipulation
 import os
@@ -87,11 +88,6 @@ filterContourIMG(list_files[6])
 # %%
 # Grouping images
 def groupIMG(filename1, filename2, pixels=(100,100), position=(0,0)):
-    # Image Name
-    pixel1, pixel2 = pixels
-    final_name = f"{list_files.index(filename1)}_{list_files.index(filename2)}__{pixel1}x{pixel2}"
-    imgformat = ".jpeg"
-    
     # Final Folder
     folder_save = r"./data/grouping/"
     if not os.path.exists(folder_save):
@@ -100,16 +96,39 @@ def groupIMG(filename1, filename2, pixels=(100,100), position=(0,0)):
     # Loading Images
     group_img1 = Image.open(f"{folder_dir}/{filename1}")
     group_img2 = Image.open(f"{folder_dir}/{filename2}")
-
-    # Position of image 2 inside image 1 (in %)
-    img_w, img_h = group_img1
-
     group_img2.thumbnail(pixels)
-    group_img1.paste(group_img2, position)
+
+    # Position of image 2 inside image 1 (from % to pixels)
+    pos_w, pos_h = position
+    img1_w, img1_h = group_img1.size
+    img2_w, img2_h = group_img2.size
+    img1_w = img1_w - img2_w
+    img1_h = img1_h - img2_h
+    position_w = int(img1_w * pos_w / 100)
+    position_h = int(img1_h * pos_h / 100)
+    group_img1.paste(group_img2, (position_w, position_h))
+
+    # Image Name
+    pixel1, pixel2 = pixels
+    final_name = f"{list_files.index(filename1)}_{list_files.index(filename2)}__{pixel1}x{pixel2}__{position_w}_{position_h}"
+    imgformat = ".jpeg"
     group_img1.save(f"{folder_save}grouping_{final_name}{imgformat}")
     return group_img1
 # %%
-groupIMG(list_files[0], list_files[1], (200,200), )
+groupIMG(list_files[0], list_files[1], (200,200), (100,100))
 # %%
 list_files.index(list_files[2])
+# %%
+def textIMG(filename, fontsize=70):
+    folder_save = r"./data/text/"
+    if not os.path.exists(folder_save):
+        os.makedirs(folder_save)
+    text_img = Image.open(f"{folder_dir}/{filename}")
+    img_drawning = ImageDraw.Draw(text_img)
+    text_font = ImageFont.truetype(".data/fonts/arial.ttf", fontsize)
+    img_drawning.text((100, 350), "Learning Pillow and Image Manipulation", (255,255,255), font=text_font)
+    text_img.save(f"{folder_save}textIMG_{filename}")
+    return text_img
+# %%
+textIMG(list_files[5])
 # %%
