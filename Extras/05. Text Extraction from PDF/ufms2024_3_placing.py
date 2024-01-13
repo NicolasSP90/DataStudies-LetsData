@@ -28,38 +28,52 @@ df_general.isna().value_counts()
 # %%
 # %%
 myid = 963760
-totalcandidates = df_general.shape[0]
-df_general[df_general["id"] == myid]
+df_my = df_general[df_general["id"] == myid]
+df_my = df_my.set_index("id")
+df_my.head()
+#%%
+totalcandidates = df_general[df_general["course"] == df_my.loc[myid, "course"]].shape[0]
+totalcandidates
+#%%
+(df_general["VL"] >= df_my.loc[myid,"VL"]).value_counts()[True]
 # %%
-myvl = df_general.loc[df_general[df_general["id"] == myid].index[0], "VL"]
-myvl
+(df_general["VH"] >= df_my.loc[myid,"VH"]).value_counts()[True]
 # %%
-myvh = df_general.loc[df_general[df_general["id"] == myid].index[0], "VH"]
-myvh
+(df_general["VN"] >= df_my.loc[myid,"VN"]).value_counts()[True]
 # %%
-myvn = df_general.loc[df_general[df_general["id"] == myid].index[0], "VN"]
-myvn
+(df_general["VM"] >= df_my.loc[myid,"VM"]).value_counts()[True]
 # %%
-myvm = df_general.loc[df_general[df_general["id"] == myid].index[0], "VM"]
-myvm
+(df_general["RED"] >= df_my.loc[myid,"RED"]).value_counts()[True]
+#%%
+#%%
+df_DS = df_general[(df_general["course"] == "CIÊNCIADOSDADOS")]
+df_DS.head()
+#%%
+df_DS.shape
+#%%
+(df_DS["VL"] >= df_my.loc[myid,"VL"]).value_counts()[True]
 # %%
-myred = df_general.loc[df_general[df_general["id"] == myid].index[0], "RED"]
-myred
+(df_DS["VH"] >= df_my.loc[myid,"VH"]).value_counts()[True]
+# %%
+(df_DS["VN"] >= df_my.loc[myid,"VN"]).value_counts()[True]
+# %%
+(df_DS["VM"] >= df_my.loc[myid,"VM"]).value_counts()[True]
+# %%
+(df_DS["RED"] >= df_my.loc[myid,"RED"]).value_counts()[True]
 #%%
 df_AC_DS = df_general[(df_general["type"] == "AC") & (df_general["course"] == "CIÊNCIADOSDADOS")]
-
 df_AC_DS.head()
 #%%
 df_AC_DS.shape
 #%%
 # VL
-(df_AC_DS["VL"] >= myvl).value_counts()[True]
+(df_AC_DS["VL"] >= df_my.loc[myid,"VL"]).value_counts()[True]
 # %%
-(df_AC_DS["VH"] >= myvh).value_counts()[True]
+(df_AC_DS["VH"] >= df_my.loc[myid,"VH"]).value_counts()[True]
 # %%
-(df_AC_DS["VN"] >= myvn).value_counts()[True]
+(df_AC_DS["VN"] >= df_my.loc[myid,"VH"]).value_counts()[True]
 # %%
-(df_AC_DS["VM"] >= myvm).value_counts()[True]
+(df_AC_DS["VM"] >= df_my.loc[myid,"VM"]).value_counts()[True]
 # %%
-(df_AC_DS["RED"] >= myred).value_counts()[True]
+(df_AC_DS["RED"] >= df_my.loc[myid,"RED"]).value_counts()[True]
 # %%
