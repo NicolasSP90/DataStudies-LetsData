@@ -46,9 +46,7 @@ relevant_text = relevant_text.split("\n")
 relevant_text
 # %%
 for i in relevant_text:
-    if len(i) == 0:
-        relevant_text.remove(i)
-    elif i == r"()":
+    if i == r"()":
         relevant_text.remove(i)
     elif "pg." in i:
         relevant_text.remove(i)
@@ -56,9 +54,7 @@ for i in relevant_text:
         pass
 
 for i in relevant_text:
-    if len(i) == 0:
-        relevant_text.remove(i)
-    elif i == r"()":
+    if i == r"()":
         relevant_text.remove(i)
     elif "pg." in i:
         relevant_text.remove(i)
@@ -73,6 +69,14 @@ df_grades.columns = ["full_text"]
 df_grades.head()
 #%%
 df_grades.tail()
+# %%
+df_grades.shape
+# %%
+df_grades[df_grades["full_text"] == ""].value_counts()
+#%%
+condition = (df_grades["full_text"] == "")
+df_grades = df_grades[~condition]
+df_grades.shape
 # %%
 df_grades["id"] = df_grades["full_text"].str.extract(r"(\d+)")
 df_grades.head()
@@ -146,4 +150,6 @@ df_AC.shape
 (df_AC["VM"] >= myvm).value_counts()[True]
 # %%
 (df_AC["RED"] >= myred).value_counts()[True]
+# %%
+df_grades.to_csv("./data/df_grades.csv")
 # %%
