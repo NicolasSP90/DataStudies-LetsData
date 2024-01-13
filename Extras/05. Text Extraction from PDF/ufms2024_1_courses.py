@@ -5,7 +5,6 @@ import pandas as pd
 import PyPDF2
 from PyPDF2 import PdfReader
 import re
-
 # %%
 def extracttext(firstpage, lastpage, filename):
     pdftext = ""
@@ -43,22 +42,12 @@ relevant_text = re.sub(r"\n", r"", relevant_text)
 relevant_text = re.sub(r" ", r"", relevant_text)
 relevant_text = re.sub(r"Espanhol", r"Espanhol\n", relevant_text)
 relevant_text = re.sub(r"Inglês", r"Inglês\n", relevant_text)
+relevant_text = re.sub(r"pg.[\d]+", r"\n", relevant_text)
 relevant_text
 #%%
 relevant_text.encode("utf-8")
-("963760" in relevant_text)
 #%%
 relevant_text = relevant_text.split("\n")
-
-
-
-
-
-
-
-
-
-
 # %%
 for i in relevant_text:
     if "Legenda" in i:
@@ -79,16 +68,11 @@ df_courses = df_courses[:-1]
 df_courses.tail()
 # %%
 df_courses[df_courses["full_text"] == ""].value_counts()
-#%%
 # %%
 df_courses["id"] = df_courses["full_text"].str.extract(r"(\d+)")
 df_courses.head()
 #%%
-df_courses[df_courses["id"] == "913822"]
-
-#%%
-df_courses[df_courses["id"] == myid]
-
+df_courses[df_courses["id"] == "963760"]
 # %%
 df_courses["course"] = df_courses["full_text"].str.extract(r"[\d]+[\w]+[\d]+([\w]+)")
 df_courses.head()
