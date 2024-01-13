@@ -116,40 +116,5 @@ df_grades.info()
 #%%
 df_grades.head()
 # %%
-myid = "963760"
-totalcandidates = df_grades.shape[0]
-df_grades[df_grades["id"] == myid]
-# %%
-myvl = df_grades.loc[df_grades[df_grades["id"] == myid].index[0], "VL"]
-myvl
-# %%
-myvh = df_grades.loc[df_grades[df_grades["id"] == myid].index[0], "VH"]
-myvh
-# %%
-myvn = df_grades.loc[df_grades[df_grades["id"] == myid].index[0], "VN"]
-myvn
-# %%
-myvm = df_grades.loc[df_grades[df_grades["id"] == myid].index[0], "VM"]
-myvm
-# %%
-myred = df_grades.loc[df_grades[df_grades["id"] == myid].index[0], "RED"]
-myred
-# %%
-df_AC = df_grades[df_grades["type"] == "AC"]
-df_AC.head()
-#%%
-df_AC.shape
-#%%
-# VL
-(df_AC["VL"] >= myvl).value_counts()[True]
-# %%
-(df_AC["VH"] >= myvh).value_counts()[True]
-# %%
-(df_AC["VN"] >= myvn).value_counts()[True]
-# %%
-(df_AC["VM"] >= myvm).value_counts()[True]
-# %%
-(df_AC["RED"] >= myred).value_counts()[True]
-# %%
 df_grades.to_csv("./data/df_grades.csv")
 # %%
