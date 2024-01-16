@@ -10,5 +10,7 @@ from selenium.webdriver.support import expected_conditionsa
 driver = webdriver.Edge() # Microsoft Edge
 # driver = webdriver.Chrome() # Google Chrome
 # driver = webdriver.Firefox() # Firefox
+
+# Acessing Website
 driver.get("http://letsdata.ai")
 # %%
