@@ -1,0 +1,18 @@
+1-In the terminal, in the related project folder:
+    py -3.XX -m venv .venv
+
+2-Select the Python interpreter from the .venv/Scripts folder (Shift Ctrl P in VSC)
+
+3- From the project folder in cmd, run
+    .venv\Scripts\activate.bat
+
+4-Install Dependencies
+    pip install -r requirements.txt
+
+5-After finishing the projet deactivate the virtual environment
+    deactivate
+
+6-Change interpreter back to global
+
+7-Remove .venv in powershell
+    rm -r .venv/
