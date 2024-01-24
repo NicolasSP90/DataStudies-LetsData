@@ -125,14 +125,32 @@ df_grades.head()
 # Transforming text to numeric
 df_grades["VL"] = df_grades["VL"].str.replace("," , ".")
 df_grades["VL"] = df_grades["VL"].astype(float)
+vlweight = 1
+
 df_grades["VH"] = df_grades["VH"].str.replace("," , ".")
 df_grades["VH"] = df_grades["VH"].astype(float)
+vhweight = 1
+
 df_grades["VN"] = df_grades["VN"].str.replace("," , ".")
 df_grades["VN"] = df_grades["VN"].astype(float)
+vnweight = 1
+
 df_grades["VM"] = df_grades["VM"].str.replace("," , ".")
 df_grades["VM"] = df_grades["VM"].astype(float)
+vmweight = 1
+
 df_grades["RED"] = df_grades["RED"].str.replace("," , ".")
 df_grades["RED"] = df_grades["RED"].astype(float)
+redweight = 2
+# %%
+df_grades["Total"] = ((
+    df_grades["VL"]*vlweight + 
+    df_grades["VH"]*vhweight + 
+    df_grades["VN"]*vnweight + 
+    df_grades["VM"]*vmweight + redweight*df_grades["RED"])
+    /
+    (vlweight + vhweight + vnweight + vmweight + redweight))
+# %%
 df_grades.info()
 #%%
 # Head Visualization
@@ -140,3 +158,4 @@ df_grades.head()
 # %%
 # Saving to CSV
 df_grades.to_csv("./data/df_grades.csv")
+# %%

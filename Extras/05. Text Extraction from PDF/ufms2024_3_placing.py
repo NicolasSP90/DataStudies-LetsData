@@ -82,6 +82,9 @@ df_DS.shape
 # My position considering my RED grade with all DS candidates
 (df_DS["RED"] >= df_my.loc[myid,"RED"]).value_counts()[True]
 #%%
+# My position considering the final grade and its weights with all DS candidates
+(df_DS["Total"] >= df_my.loc[myid,"Total"]).value_counts()[True]
+#%%
 # Creating Datafame of DS candidates without reserved positions
 df_AC_DS = df_general[(df_general["type"] == "AC") & (df_general["course"] == "CIÊNCIADOSDADOS")]
 df_AC_DS.head()
@@ -103,4 +106,7 @@ df_AC_DS.shape
 # %%
 # My position considering my RED grade with all DS candidates without reserved positions
 (df_AC_DS["RED"] >= df_my.loc[myid,"RED"]).value_counts()[True]
+# %%
+# My position considering the final grade and its weights with all DS candidates without reserved positions
+(df_AC_DS["Total"] >= df_my.loc[myid,"Total"]).value_counts()[True]
 # %%
