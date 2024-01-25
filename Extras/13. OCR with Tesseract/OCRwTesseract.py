@@ -13,6 +13,7 @@ import pytesseract
 import itertools
 import os
 import string
+import easyocr
 # %%
 # Reading image
 image = cv2.imread(r"./data/plate/62417_1000x600_width.jpg")
@@ -96,7 +97,7 @@ def extract_text(imgpath, language=None, psm=None, oem=None, char=None):
     if char is not None:
         char_arg = f"-c tessedit_char_whitelist={char}"
     else:
-        oem_arg = f""
+        char_arg = f""
 
     arguments["config"] = f"{psm_arg} {oem_arg} {char_arg}"
     
@@ -159,4 +160,21 @@ for img_car in files_cars:
     img_car_plate = os.path.join(car_path, img_car)
     showIMG(img_car_plate)
     print(extract_text(img_car_plate, psm=11, oem=3, char=char_list))
+# %%
+# Texting OCR with easyOCR
+
+# Instancing the reader
+leitor = easyocr.Reader(['en'])
+
+for image_car in files_cars:
+    # Creating path to images
+    image_car_plate = os.path.join(car_path, image_car)
+    
+    # Showing Images
+    showIMG(image_car_plate)
+    
+    # fazendo OCR com easyocr
+    result = leitor.readtext(image_car_plate)
+    
+    print(result)
 # %%
