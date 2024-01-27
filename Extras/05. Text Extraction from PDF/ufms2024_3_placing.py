@@ -45,42 +45,12 @@ df_my.head()
 # Filtering all candidates that applied for the same course as me
 df_general[df_general["course"] == df_my.loc[myid, "course"]].shape[0]
 #%%
-# My position considering my VL grade with all candidates
-(df_general["VL"] >= df_my.loc[myid,"VL"]).value_counts()[True]
-#%%
-# My position considering my VH grade with all candidates
-(df_general["VH"] >= df_my.loc[myid,"VH"]).value_counts()[True]
-#%%
-# My position considering my VN grade with all candidates
-(df_general["VN"] >= df_my.loc[myid,"VN"]).value_counts()[True]
-#%%
-# My position considering my VM grade with all candidates
-(df_general["VM"] >= df_my.loc[myid,"VM"]).value_counts()[True]
-#%%
-# My position considering my RED grade with all candidates
-(df_general["RED"] >= df_my.loc[myid,"RED"]).value_counts()[True]
-#%%
 # Creating Datafame of DS candidates
 df_DS = df_general[(df_general["course"] == "CIÊNCIADOSDADOS")]
 df_DS.head()
 #%%
 # Checking DS Dataframe size
 df_DS.shape
-#%%
-# My position considering my VL grade with all DS candidates
-(df_DS["VL"] >= df_my.loc[myid,"VL"]).value_counts()[True]
-#%%
-# My position considering my VH grade with all DS candidates
-(df_DS["VH"] >= df_my.loc[myid,"VH"]).value_counts()[True]
-#%%
-# My position considering my VN grade with all DS candidates
-(df_DS["VN"] >= df_my.loc[myid,"VN"]).value_counts()[True]
-#%%
-# My position considering my VM grade with all DS candidates
-(df_DS["VM"] >= df_my.loc[myid,"VM"]).value_counts()[True]
-#%%
-# My position considering my RED grade with all DS candidates
-(df_DS["RED"] >= df_my.loc[myid,"RED"]).value_counts()[True]
 #%%
 # My position considering the final grade and its weights with all DS candidates
 (df_DS["Total"] >= df_my.loc[myid,"Total"]).value_counts()[True]
@@ -92,21 +62,6 @@ df_AC_DS.head()
 # Checking Dataframe size
 df_AC_DS.shape
 #%%
-# My position considering my VL grade with all DS candidates without reserved positions
-(df_AC_DS["VL"] >= df_my.loc[myid,"VL"]).value_counts()[True]
-#%%
-# My position considering my VH grade with all DS candidates without reserved positions
-(df_AC_DS["VH"] >= df_my.loc[myid,"VH"]).value_counts()[True]
-#%%
-# My position considering my VN grade with all DS candidates without reserved positions
-(df_AC_DS["VN"] >= df_my.loc[myid,"VN"]).value_counts()[True]
-# %%
-# My position considering my VM grade with all DS candidates without reserved positions
-(df_AC_DS["VM"] >= df_my.loc[myid,"VM"]).value_counts()[True]
-# %%
-# My position considering my RED grade with all DS candidates without reserved positions
-(df_AC_DS["RED"] >= df_my.loc[myid,"RED"]).value_counts()[True]
 # %%
 # My position considering the final grade and its weights with all DS candidates without reserved positions
 (df_AC_DS["Total"] >= df_my.loc[myid,"Total"]).value_counts()[True]
-# %%
