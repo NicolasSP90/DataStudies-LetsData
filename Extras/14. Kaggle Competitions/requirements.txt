@@ -1,0 +1,4 @@
+notebook
+kaggle
+pandas
+scikit-learn
