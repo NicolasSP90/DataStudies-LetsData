@@ -5,7 +5,7 @@ The project follows this steps:
 1- Capture frames from the webcam (OpenCV)
 2- When pressing the "c" key, the OCR will capture the frames
 3- When pressing the "s" word, search for the player statistics
-4- Writte the data in the frame ()
+4- Write the data in the frame ()
 5- Presents the frame with its data
 6- When pressing the "e" word, erase all data
 
