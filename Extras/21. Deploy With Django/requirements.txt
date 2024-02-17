@@ -1,5 +1,0 @@
-django~=5.0.2
-notebook~=7.0.8
-pandas~=2.2.0
-scikit-learn~=1.4.0
-seaborn~=0.13.2
