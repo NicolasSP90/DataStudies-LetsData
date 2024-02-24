@@ -1,2 +1,5 @@
-pandas
+pandas~=2.2.0
 sqlite3
+os
+dotenv
+psycopg2
