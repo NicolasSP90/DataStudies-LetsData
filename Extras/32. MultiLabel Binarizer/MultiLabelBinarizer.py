@@ -6,12 +6,12 @@ from sklearn.preprocessing import MultiLabelBinarizer
 # %%
 # Products with Labels
 products = [
-    ("Smartphone", ["Eletrônicos", "Comunicação", "Portátil"]),
-    ("Notebook Gamer", ["Eletrônicos", "Jogos", "Portátil", "Computação"]),
-    ("Tênis de Corrida", ["Vestuário", "Esportes", "Calçados"]),
-    ("Liquidificador", ["Eletrodomésticos", "Cozinha", "Alimentos"]),
-    ("Bicicleta de Montanha", ["Esportes"]),
-    ("Livro de Receitas", ["Livros", "Cozinha", "Educação"])
+    ("Smartphone", ["Electronic", "Communication", "Portable"]),
+    ("Notebook Gamer", ["Electronic", "Game", "Portable", "Computer"]),
+    ("Running Shoes", ["Clothing", "Sports", "Footwear"]),
+    ("Blender", ["Appliances", "Kitchen", "Food"]),
+    ("Mountain Bike", ["Sports"]),
+    ("Cookbook", ["Books", "Kitchen", "Education"])
     ]
 
 products
