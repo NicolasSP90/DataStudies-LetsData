@@ -3,10 +3,20 @@
 import duckdb
 import pandas as pd
 import os
+import time
+
+# %%
+# Elapsed Time functions
+def st_time():
+    global str_time 
+    str_time = time.time()
+
+def lt_time():
+    ltr_time = time.time()
+    print(F"Elapsed time: {ltr_time - str_time}s")
 
 # %%
 # Create DuckDB connector
-
 # Creates the database in memory
 con = duckdb.connect()
 
@@ -176,4 +186,133 @@ df_csv
 # Checking object type
 type(df_csv)
 
+# %%
+# link of parquet file
+link_parquet = 'https://d37ci6vzurychx.cloudfront.net/trip-data/fhvhv_tripdata_2023-03.parquet'
+
+# %%
+# Time to download and read parquet file - PANDAS
+st_time()
+
+pd.read_parquet(link_parquet)
+
+lt_time()
+
+# %%
+# Time to download and read parquet file - DuckDB
+st_time()
+
+duckdb.sql("""
+           SELECT COUNT(*)
+           FROM read_parquet('https://d37ci6vzurychx.cloudfront.net/trip-data/fhvhv_tripdata_2023-03.parquet')
+           """)
+
+lt_time()
+
+# %%
+# Time show the first 10 rows - PANDAS
+st_time()
+
+pd.read_parquet('https://d37ci6vzurychx.cloudfront.net/trip-data/fhvhv_tripdata_2023-03.parquet').head(10)
+
+lt_time()
+
+# %%
+# Time show the first 10 rows - DuckDB
+st_time()
+
+display(duckdb.sql("""
+           SELECT *
+           FROM read_parquet('https://d37ci6vzurychx.cloudfront.net/trip-data/fhvhv_tripdata_2023-03.parquet')
+           LIMIT 10
+           """).df())
+
+lt_time()
+
+# %%
+# Aggregate function time - PANDAS
+st_time()
+
+df = pd.read_parquet(link_parquet)
+
+df.sort_values(by="hvfhs_license_num", ascending=False)
+
+lt_time()
+
+# %%
+# Aggregate function time - DuckDB
+st_time()
+
+duckdb.sql("""
+           SELECT dispatching_base_num, COUNT(*)
+           FROM read_parquet('https://d37ci6vzurychx.cloudfront.net/trip-data/fhvhv_tripdata_2023-03.parquet')
+           GROUP BY dispatching_base_num
+           ORDER BY 2 DESC""").df()
+
+lt_time()
+
+# %%
+# The callings of FROM and SELECT do not need to be in the right order
+con.execute("""
+    FROM 'data/raw/*.csv'
+    SELECT *
+""").df()
+
+# %%
+# If the SELECT command is SELECT * only, it doenst need to called
+con.execute("""
+            FROM 'data/raw/*.csv'
+            """).df()
+
+# %%
+# Regex can be used - Case 1
+con.execute("""
+            SELECT *
+            FROM 'data/raw/*.csv'
+            WHERE Nome like '%Smirnov'
+            """).df()
+
+# %%
+# Regex can be used - Case 2 (.execute and .sql are alias)
+con.sql("""
+            SELECT *
+            FROM 'data/raw/*.csv'
+            WHERE Nome like '%Smirnov'
+            """).df()
+
+# %%
+# Regex can be used - Case 3
+con.execute("""
+            FROM 'data/raw/*.csv'
+            WHERE regexp_matches(Nome, '^.*Sm.*$')
+            """).df()
+
+# %%
+# Regex can be used - Case 3 - Regex on column names
+con.execute("""
+            SELECT columns('N.*')
+            FROM 'data/raw/*.csv'
+            WHERE regexp_matches(Nome, '^.*Sm.*$')
+            """).df()
+
+# %%
+# Regex can be used - Case 4 - Regex on column names
+duckdb.sql("""
+           SELECT columns('shared.*')
+           FROM read_parquet('https://d37ci6vzurychx.cloudfront.net/trip-data/fhvhv_tripdata_2023-03.parquet')
+           LIMIT 10;
+           """).df()
+
+# %%
+# Storing a .csv file in pandas dataframe
+df_alemanha = pd.read_csv('data/raw/Alemanha.csv')
+
+# Call the created dataframe in FROM argument
+duckdb.sql("""
+           SELECT *
+           FROM df_alemanha
+           """).df()
+# %%
+# Close connection
+con.close()
 # %%
